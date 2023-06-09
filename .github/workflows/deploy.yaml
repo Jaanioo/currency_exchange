@@ -1,0 +1,49 @@
+name: Push-to-EC2
+
+on:
+  push:
+    branches:
+      - main
+
+
+jobs:
+  deploy:
+    name: Deploy to EC2
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known_hosts: unnecessary
+
+      - name: Adding Known Hosts
+        run: ssh-keyscan -p 22 -H 3.136.17.174  >> ~/.ssh/known_hosts
+
+      - name: fetch code
+        uses: appleboy/ssh-action@master
+        with:
+          host: 3.136.17.174
+          username: ubuntu #Jaanioo
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            cd var
+            cd www
+            cd przelicznik
+            sudo git fetch
+            sudo git reset --hard FETCH_HEAD
+            sudo git clean -d -f --exclude secrets
+            sudo git pull 
+
+      - name: composer install
+        uses: appleboy/ssh-action@master
+        with:
+          host: 3.136.17.174
+          username: ubuntu #Jaanioo
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            docker compose up -d
