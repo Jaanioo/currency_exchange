@@ -5,17 +5,13 @@ require_once 'View/CurrencyConverterView.php';
 require_once 'View/ConvertionsTableView.php';
 require_once 'Database.php';
 
-// Create an instance of the Database class
 $database = new Database();
 
-// Create an instance of the ConvertionsTableView class
 $convertionsTable = new ConvertionsTableView($database);
 
-// Create an instance of the CurrencyConverter class
 $converter = new CurrencyConverter(
     'https://api.nbp.pl/api/exchangerates/tables/A?format=json', $database);
 
-// Fetch exchange rates from the API
 $rates = $converter->fetchExchangeRates();
 
 ?>
