@@ -4,7 +4,6 @@
 ## Table of Contents
 * [General Info](#general-information)
 * [Technologies Used](#technologies-used)
-* [Features](#features)
 * [Usage](#usage)
 * [Project Status](#project-status)
 * [Acknowledgements](#acknowledgements)
@@ -35,14 +34,13 @@ git clone https://github.com/Jaanioo/currency_exchange Jaanioo
 cd jaanioo
 docker compose up -d`
 
-Go to your browser and type 'http://localhost:8081'
+Go to your browser and type 'localhost:8081'
 
 **To use it via VPS:**
 
 Go to your browser and open that site:
 
-http://3.137.169.190:8080
-
+3.136.17.174:8081
 
 ## Project Status
 Project is: _ready_
